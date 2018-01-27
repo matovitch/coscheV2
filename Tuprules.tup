@@ -1,0 +1,23 @@
+ROOT = $(TUP_CWD)
+
+CX = clang++-5.0
+
+CXFLAGS  = -Wall
+CXFLAGS += -pedantic
+CXFLAGS += -std=c++17
+
+ifeq (@(DEBUG),y)
+    CXFLAGS += -g
+else
+    CXFLAGS += -O3
+endif
+
+CXFLAGS += -I ./include
+
+LDFLAGS  = -l boost_context
+LDFLAGS += -l pthread
+
+!cx = |> $(CX) $(CXFLAGS) -c %f -o %o |> %B.o
+!ld = |> $(CX) %f $(LDFLAGS) -o %o |>
+
+DEPS_BOOST_CONTEXT = $(ROOT)/deps/boost/context

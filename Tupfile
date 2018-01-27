@@ -1,0 +1,13 @@
+include_rules
+
+OBJS = $(ROOT)/*.o
+
+SRCE = $(ROOT)/*.cpp
+
+SRCE += $(DEPS_BOOST_CONTEXT)/asm/ontop_x86_64_sysv_elf_gas.S
+SRCE += $(DEPS_BOOST_CONTEXT)/asm/make_x86_64_sysv_elf_gas.S
+SRCE += $(DEPS_BOOST_CONTEXT)/asm/jump_x86_64_sysv_elf_gas.S
+SRCE += $(DEPS_BOOST_CONTEXT)/execution_context.cpp
+
+: foreach $(SRCE) |> !cx |> %B.o
+: $(OBJS) |> !ld |> coscheV2
